@@ -1,7 +1,10 @@
 package com.example.panagiotis.otpapp;
 
 import android.net.Uri;
+import android.util.JsonReader;
 import android.util.Log;
+
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,31 +15,23 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class Erwthma extends Thread {
-
-
-String email,pass;
-public Boolean aithma=false,diwkseto=false,test=false;
-
-    public Erwthma( String email, String pass) {
-        this.email = email;
-        this.pass = pass;
-    }
-
-    public boolean getaithma(){
-        return aithma;
-    }
-    public boolean getdiwkseto(){
-        return diwkseto;
+public class Authentication extends Thread {
+    String otp;
+    public Boolean aithma=false,diwkseto=false,test=false;
+    public Authentication( String otp) {
+        this.otp = otp;
     }
     public boolean gettest(){
         return test;
     }
 
+    public boolean getDiwkseto(){
+        return diwkseto;
+    }
     @Override
     public void run() {
         super.run();
-        String link = "http://192.168.1.7:80/otp/erwthma.php";
+        String link = "http://192.168.1.7:80/otp/authentication.php";
         URL myURL = null;
         try {
             myURL = new URL(link);
@@ -53,8 +48,7 @@ public Boolean aithma=false,diwkseto=false,test=false;
                 e.printStackTrace();
             }
             Uri.Builder postmsg = new Uri.Builder()
-                    .appendQueryParameter("email", email)
-                    .appendQueryParameter("pass", pass);
+                    .appendQueryParameter("otp", otp);
             String query = postmsg.build().getEncodedQuery();
             OutputStreamWriter out = new OutputStreamWriter(
                     conn.getOutputStream());
@@ -67,18 +61,22 @@ public Boolean aithma=false,diwkseto=false,test=false;
             while ((k = in.readLine()) != null) {
                 Log.d("server reply", k+diwkseto.toString());
 
-                if (k.equals("iparxei hdh")  || k.equals("New user successfully created") ) {
+                if (k.equals("yesthe last one is alive") ) {
                     diwkseto = true;
                     Log.d("poutsa", "big");
                     //otan girnaei deny einai lathos to hash
-                } else {
+                } else if(k.equals("yescan not authenticate") || k.equals("yesthelei neo token")) {
                     diwkseto = false;
+                }
+                else{
+                    diwkseto=false;
                 }
 
             }
 
 
             in.close();
+
             conn.connect();
             Log.d("hit", "connected");
             int rescode = conn.getResponseCode();
@@ -101,6 +99,5 @@ public Boolean aithma=false,diwkseto=false,test=false;
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
