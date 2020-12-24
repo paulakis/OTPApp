@@ -35,7 +35,7 @@ public class Login extends AppCompatActivity {
                             mybox.setChecked(false);
                         }
                         if(!na[0]) {
-                        Toast.makeText(Login.this, "Your OTP token is no more alive.Go back to sign up", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Login.this, "Your OTP token is no more alive.Go back to sign up", Toast.LENGTH_LONG).show();
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -43,7 +43,7 @@ public class Login extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }else{
-                    Toast.makeText(Login.this, "If you don't have the right OTP go back and try again", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "If you don't have the right OTP go back and try again", Toast.LENGTH_LONG).show();
                 }
             }
         });

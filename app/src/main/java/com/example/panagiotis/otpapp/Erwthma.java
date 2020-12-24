@@ -36,7 +36,7 @@ public Boolean aithma=false,diwkseto=false,test=false;
     @Override
     public void run() {
         super.run();
-        String link = "http://192.168.1.7:80/otp/erwthma.php";
+        String link = "http://192.168.1.26:80/otp/erwthma.php";
         URL myURL = null;
         try {
             myURL = new URL(link);

@@ -31,7 +31,7 @@ public class Authentication extends Thread {
     @Override
     public void run() {
         super.run();
-        String link = "http://192.168.1.7:80/otp/authentication.php";
+        String link = "http://192.168.1.26:80/otp/authentication.php";
         URL myURL = null;
         try {
             myURL = new URL(link);
